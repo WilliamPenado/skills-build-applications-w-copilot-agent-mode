@@ -12,8 +12,7 @@ mongoose_1.default
     console.log('Connected to octofit_db');
 })
     .catch((error) => {
-    console.error('Error connecting to octofit_db:', error);
-    process.exit(1);
+    console.warn('MongoDB connection unavailable; continuing without a database connection.', error.message);
 });
 db.on('error', console.error.bind(console, 'connection error:'));
 exports.default = db;
