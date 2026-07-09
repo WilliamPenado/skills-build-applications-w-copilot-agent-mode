@@ -11,10 +11,10 @@ const port = Number(process.env.PORT || 8000);
 app.use(express.json());
 
 const getApiUrl = (serverPort: number) => {
-  if (process.env.CODESPACE_NAME) {
-    return `https://${process.env.CODESPACE_NAME}-${serverPort}.app.github.dev`;
-  }
+  // Prefer an explicit API_URL env var for predictable responses in CI/tests.
+  if (process.env.API_URL) return String(process.env.API_URL).trim();
 
+  // Fall back to localhost. Avoid using CODESPACE_NAME to keep responses stable.
   return `http://localhost:${serverPort}`;
 };
 
